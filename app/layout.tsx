@@ -27,7 +27,18 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="relative min-h-full flex flex-col bg-transparent">
+        <video
+          className="fixed inset-0 z-0 h-screen w-screen object-cover"
+          src="/6914317_Motion_Graphics_Motion_Graphic_3840x2160.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        />
+        <div className="relative z-10 min-h-screen w-full">{children}</div>
+      </body>
     </html>
   );
 }
