@@ -82,7 +82,7 @@ void main() {
     float field = 0.0;
     field += metaball(vUv, uBlob, uRadius * 0.74);
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 3; i++) {
         float fi = float(i);
         float orbit = uTime * (0.45 + fi * 0.17) + fi * 2.3994;
         float wobble = 0.30 + 0.16 * sin(uTime * 0.8 + fi * 1.7);
@@ -110,6 +110,7 @@ export default function MotocycleHelmet({
     const blobPosition = useRef(new Vector2(0.5, 0.5))
     const prevBlobPosition = useRef(new Vector2(0.5, 0.5))
     const blobDir = useRef(new Vector2(1, 0))
+    const blobDelta = useRef(new Vector2(0, 0))
     const sweep = useRef({
         start: new Vector2(-0.2, 0.5),
         end: new Vector2(1.2, 0.5),
@@ -137,8 +138,8 @@ export default function MotocycleHelmet({
             depthBuffer: false,
             stencilBuffer: false,
         }
-        const readTarget = new WebGLRenderTarget(512, 512, targetOptions)
-        const writeTarget = new WebGLRenderTarget(512, 512, targetOptions)
+        const readTarget = new WebGLRenderTarget(256, 256, targetOptions)
+        const writeTarget = new WebGLRenderTarget(256, 256, targetOptions)
         const fboScene = new Scene()
         const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1)
         const material = new ShaderMaterial({
@@ -296,9 +297,9 @@ export default function MotocycleHelmet({
             fboState.material.uniforms.uStretch.value = 2.6
         }
 
-        const delta = blobPosition.current.clone().sub(prevBlobPosition.current)
-        if (delta.lengthSq() > 1e-8) {
-            blobDir.current.copy(delta).normalize()
+        blobDelta.current.copy(blobPosition.current).sub(prevBlobPosition.current)
+        if (blobDelta.current.lengthSq() > 1e-8) {
+            blobDir.current.copy(blobDelta.current).normalize()
         }
 
         fboState.material.uniforms.uPrevTexture.value = fboState.readTarget.texture

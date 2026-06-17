@@ -6,7 +6,7 @@ import { Canvas } from "@react-three/fiber";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import MotocycleHelmet from "./components/MotocycleHelmet";
+import MotocycleHelmet from "./MotocycleHelmet";
 import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -46,11 +46,11 @@ const helmetGalleryItems = [
 
 export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
-
+  const [isHeaderCompact, setIsHeaderCompact] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
   const loaderContentRef = useRef<HTMLDivElement>(null);
-  const headerLogoRef = useRef<HTMLSpanElement>(null);
   const heroRef = useRef<HTMLElement>(null);
+  const headerLogoRef = useRef<HTMLSpanElement>(null);
   const canvasShellRef = useRef<HTMLDivElement>(null);
   const firstLineRef = useRef<HTMLDivElement>(null);
   const secondLineRef = useRef<HTMLDivElement>(null);
@@ -69,17 +69,33 @@ export default function Home() {
 
   useEffect(() => {
 
+    // const lenis = new Lenis({
+    //   lerp: 0.08,
+    //   smoothWheel: true,
+    // });
+
+    // lenis.on("scroll", ScrollTrigger.update);
+
+    // gsap.ticker.add((time) => {
+    //   lenis.raf(time * 1000);
+    // });
+
+    // gsap.ticker.lagSmoothing(0);
+
     const lenis = new Lenis({
+      autoRaf: false,
       lerp: 0.08,
       smoothWheel: true,
+      syncTouch: true,
     });
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const update = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
 
+    gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
 
     // ------------------------
@@ -127,7 +143,6 @@ export default function Home() {
 
   useEffect(() => {
     const hero = heroRef.current;
-    const headerLogo = headerLogoRef.current;
     const canvasShell = canvasShellRef.current;
     const firstLine = firstLineRef.current;
     const secondLine = secondLineRef.current;
@@ -141,7 +156,7 @@ export default function Home() {
     const motorcyclistRight = motorcyclistRightRef.current;
     const motorcyclistHeroSection = motorcyclistHeroSectionRef.current;
 
-    if (!hero || !headerLogo || !canvasShell || !firstLine || !secondLine || !gallerySection ||
+    if (!hero || !canvasShell || !firstLine || !secondLine || !gallerySection ||
       !galleryContainer ||
       !galleryWrapper ||
       !motorcyclistSection ||
@@ -193,36 +208,13 @@ export default function Home() {
         ease: "none",
       });
 
-      gsap.set(headerLogo, {
-        transformOrigin: "left top",
-        willChange: "left, top, transform, font-size",
-      });
-
-      gsap.fromTo(
-        headerLogo,
-        {
-          left: "50%",
-          top: "50%",
-          fontSize: "clamp(6rem, 11vw, 11rem)",
-          xPercent: -50,
-          yPercent: -50,
-        },
-        {
-          left: "1.5rem",
-          top: "1rem",
-          fontSize: "2rem",
-          xPercent: 0,
-          yPercent: 0,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: hero,
-            start: "top-=10 top",
-            end: "+=160",
-            scrub: 0.5,
-            invalidateOnRefresh: true,
-          },
-        }
-      );
+      // ScrollTrigger.create({
+      //   trigger: hero,
+      //   start: "top top",
+      //   end: "+=1",
+      //   onLeave: () => setIsHeaderCompact(true),
+      //   onEnterBack: () => setIsHeaderCompact(false),
+      // });
 
       //----------------------------------------
       // Gallery
@@ -355,7 +347,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen w-screen overflow-x-hidden font-serif">
+    <main className="min-h-screen w-screen overflow-x-hidden font-sans">
       {showLoader && (
         <div
           ref={loaderRef}
@@ -372,16 +364,17 @@ export default function Home() {
           </div>
         </div>
       )}
-
-      <header className="pointer-events-none fixed inset-0 z-[120]">
+      {/* <header className="pointer-events-none fixed inset-0 z-[120]">
         <span
           ref={headerLogoRef}
-          className="absolute inline-block overflow-visible whitespace-nowrap bg-gradient-to-r from-[#4b0305] via-[#9f1d20] to-[#f25a3c] bg-clip-text px-3 py-1 font-serif text-4xl font-black italic lowercase leading-none tracking-[-0.045em] text-transparent [will-change:transform]"
+          className={`absolute inline-block whitespace-nowrap font-black uppercase leading-none tracking-tight transition-[left,top,transform,font-size,color] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] [contain:paint] [will-change:transform] ${isHeaderCompact
+              ? "left-6 top-4 translate-x-0 translate-y-0 text-xl text-[#3d0607]"
+              : "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(2.6rem,8vw,7.5rem)] text-[#5f0c0efc]"
+            }`}
         >
           advanced analytics
         </span>
-      </header>
-
+      </header> */}
       <section ref={heroRef} className="relative h-screen w-screen">
         <div className="relative flex h-screen w-screen items-center justify-center overflow-hidden">
           <div className="pointer-events-none absolute inset-0 z-0 flex flex-col items-center justify-center gap-2 overflow-hidden text-center text-[clamp(2.5rem,9vw,9rem)] font-black uppercase leading-none tracking-[-0.02em]">
@@ -424,7 +417,6 @@ export default function Home() {
                 <Canvas
                   className="w-full h-full"
                   camera={{ position: [0, 0, 3.35], fov: 36 }}
-                  dpr={[1, 1.5]}
                   resize={{ scroll: false, debounce: { scroll: 0, resize: 0 } }}
                   shadows
                 >
