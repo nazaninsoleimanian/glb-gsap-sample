@@ -341,8 +341,10 @@ export default function Home() {
           advanced analytics
         </span>
       </header>
+
       <main className="min-h-screen w-screen overflow-x-hidden font-serif">
 
+        {/* ------------------     HERO SECTION     ---------------------- */}
 
         <section ref={heroRef} className="relative h-screen w-screen">
           <div className="relative flex h-screen w-screen items-center justify-center overflow-hidden">
@@ -404,6 +406,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* ------------------     TEXT SECTION     ---------------------- */}
+
         <section className="relative flex h-screen w-screen items-center justify-center overflow-hidden">
           <p
             ref={textRef}
@@ -421,6 +426,9 @@ export default function Home() {
               ))}
           </p>
         </section>
+
+        {/* ------------------     GALLERY SECTION     ---------------------- */}
+
         <section
           ref={gallerySectionRef}
           className="relative h-screen w-screen overflow-hidden"
@@ -451,6 +459,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* ------------------     MOTORCYCLIST SECTION     ---------------------- */}
+
         <section
           ref={motorcyclistSectionRef}
           className="relative h-screen w-screen overflow-hidden"
