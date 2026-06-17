@@ -40,7 +40,7 @@ const helmetGalleryItems = [
   {
     src: "/helmet-11.jpg",
     label: "Final archive",
-    className: "left-[196vw] top-[16vh] h-[54vh] w-[34vw]",
+    className: "left-[196vw] top-[46vh] h-[45vh] w-[40vw]",
   },
 ];
 
@@ -68,7 +68,6 @@ export default function Home() {
   const motorcyclistHeroSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-
     const lenis = new Lenis({
       lerp: 0.08,
       smoothWheel: true,
@@ -86,7 +85,6 @@ export default function Home() {
     // Hero Animation
     // ------------------------
 
-
     const hideTimer = window.setTimeout(() => {
       const loader = loaderRef.current;
       const loaderContent = loaderContentRef.current;
@@ -97,26 +95,31 @@ export default function Home() {
         return;
       }
 
-      gsap.timeline({
-        onComplete: () => {
-          setShowLoader(false);
-          document.body.style.overflow = "";
-        },
-      })
+      gsap
+        .timeline({
+          onComplete: () => {
+            setShowLoader(false);
+            document.body.style.overflow = "";
+          },
+        })
         .to(loaderContent, {
           y: -28,
           opacity: 0,
           duration: 0.35,
           ease: "power2.in",
         })
-        .to(loader, {
-          yPercent: -110,
-          rotate: -2,
-          borderBottomLeftRadius: "55vw",
-          borderBottomRightRadius: "55vw",
-          duration: 0.95,
-          ease: "expo.inOut",
-        }, "-=0.08");
+        .to(
+          loader,
+          {
+            yPercent: -110,
+            rotate: -2,
+            borderBottomLeftRadius: "55vw",
+            borderBottomRightRadius: "55vw",
+            duration: 0.95,
+            ease: "expo.inOut",
+          },
+          "-=0.08",
+        );
     }, 2000);
 
     return () => {
@@ -141,13 +144,21 @@ export default function Home() {
     const motorcyclistRight = motorcyclistRightRef.current;
     const motorcyclistHeroSection = motorcyclistHeroSectionRef.current;
 
-    if (!hero || !headerLogo || !canvasShell || !firstLine || !secondLine || !gallerySection ||
+    if (
+      !hero ||
+      !headerLogo ||
+      !canvasShell ||
+      !firstLine ||
+      !secondLine ||
+      !gallerySection ||
       !galleryContainer ||
       !galleryWrapper ||
       !motorcyclistSection ||
       !motorcyclistLeft ||
       !motorcyclistRight ||
-      !motorcyclistHeroSection) return;
+      !motorcyclistHeroSection
+    )
+      return;
 
     const ctx = gsap.context(() => {
       //----------------------------------------
@@ -159,40 +170,53 @@ export default function Home() {
         transformOrigin: "center center",
       });
 
-      gsap.fromTo(firstLine, {
-        xPercent: 0,
-      }, {
-        xPercent: -50,
-        duration: 40,
-        ease: "none",
-        repeat: -1,
-      });
-
-      gsap.fromTo(secondLine, {
-        xPercent: -50,
-      }, {
-        xPercent: 0,
-        duration: 40,
-        ease: "none",
-        repeat: -1,
-      });
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: hero,
-          start: "top top",
-          end: "+=1200",
-          scrub: 2,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 0,
-          invalidateOnRefresh: true,
+      gsap.fromTo(
+        firstLine,
+        {
+          xPercent: 0,
         },
-      }).to(".canvas-inner", {
-        scale: 0.45,
-        borderRadius: 36,
-        ease: "none",
-      });
+        {
+          xPercent: -50,
+          duration: 40,
+          ease: "none",
+          repeat: -1,
+        },
+      );
 
+      gsap.fromTo(
+        secondLine,
+        {
+          xPercent: -50,
+        },
+        {
+          xPercent: 0,
+          duration: 40,
+          ease: "none",
+          repeat: -1,
+        },
+      );
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "+=1200",
+            scrub: 2,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 0,
+            invalidateOnRefresh: true,
+          },
+        })
+        .to(".canvas-inner", {
+          scale: 0.45,
+          borderRadius: 36,
+          ease: "none",
+        });
+
+      //----------------------------------------
+      // Header Logo
+      //----------------------------------------
       gsap.set(headerLogo, {
         transformOrigin: "left top",
         willChange: "left, top, transform, font-size",
@@ -201,11 +225,11 @@ export default function Home() {
       gsap.fromTo(
         headerLogo,
         {
-          left: "50%",
-          top: "50%",
+          left: "60%",
+          top: "60%",
           fontSize: "clamp(6rem, 11vw, 11rem)",
-          xPercent: -50,
-          yPercent: -50,
+          xPercent: -60,
+          yPercent: -60,
         },
         {
           left: "1.5rem",
@@ -221,7 +245,7 @@ export default function Home() {
             scrub: 0.5,
             invalidateOnRefresh: true,
           },
-        }
+        },
       );
 
       //----------------------------------------
@@ -243,8 +267,7 @@ export default function Home() {
         },
       });
 
-      const totalScroll =
-        galleryWrapper.scrollWidth - window.innerWidth;
+      const totalScroll = galleryWrapper.scrollWidth - window.innerWidth;
 
       gsap.to(galleryWrapper, {
         x: -totalScroll,
@@ -277,7 +300,7 @@ export default function Home() {
           trigger: motorcyclistSection,
           start: "top 80%",
           end: "center center",
-          scrub: 1.2,
+          scrub: 2,
         },
       });
 
@@ -312,7 +335,7 @@ export default function Home() {
           end: "bottom center",
           scrub: 1,
         },
-      }
+      },
     );
 
     //----------------------------------------
@@ -323,22 +346,24 @@ export default function Home() {
       yPercent: 100,
     });
 
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: motorcyclistSection,
-        start: "top top",
-        end: "+=100%",
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    }).to(motorcyclistHeroSection, {
-      yPercent: 0,
-      ease: "none",
-    });
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: motorcyclistSection,
+          start: "top top",
+          end: "+=100%",
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      })
+      .to(motorcyclistHeroSection, {
+        yPercent: 0,
+        ease: "none",
+      });
 
-    // ScrollTrigger.refresh();
+    ScrollTrigger.refresh();
 
     return () => {
       ctx.revert();
@@ -346,23 +371,18 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    const raf = requestAnimationFrame(() => {
-      ScrollTrigger.refresh(true); // force recalculation
-    });
-
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
   return (
     <main className="min-h-screen w-screen overflow-x-hidden font-serif">
       {showLoader && (
         <div
           ref={loaderRef}
-          className="fixed inset-0 z-[9999] flex origin-top items-center justify-center overflow-hidden bg-gradient-to-br from-red-950 via-red-800 to-red-700 text-[#f7eee7]"
+          className="fixed inset-0 z-9999 flex origin-top items-center justify-center overflow-hidden bg-linear-to-br from-red-950 via-red-800 to-red-700 text-[#f7eee7]"
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.18),transparent_34%)]" />
-          <div ref={loaderContentRef} className="relative flex flex-col items-center gap-5 text-center">
+          <div
+            ref={loaderContentRef}
+            className="relative flex flex-col items-center gap-5 text-center"
+          >
             <p className="text-xs font-bold uppercase tracking-[0.6em] text-[#f7eee7]/70">
               Loading
             </p>
@@ -373,10 +393,10 @@ export default function Home() {
         </div>
       )}
 
-      <header className="pointer-events-none fixed inset-0 z-[120]">
+      <header className="pointer-events-none fixed inset-0 z-120">
         <span
           ref={headerLogoRef}
-          className="absolute inline-block overflow-visible whitespace-nowrap bg-gradient-to-r from-[#4b0305] via-[#9f1d20] to-[#f25a3c] bg-clip-text px-3 py-1 font-serif text-4xl font-black italic lowercase leading-none tracking-[-0.045em] text-transparent [will-change:transform]"
+          className="absolute inline-block overflow-visible whitespace-nowrap bg-linear-to-r from-[#4b0305] via-[#9f1d20] to-[#f25a3c] bg-clip-text px-3 py-1 font-serif text-4xl font-black italic lowercase leading-none tracking-[-0.045em] text-transparent [will-change:transform]"
         >
           advanced analytics
         </span>
@@ -431,7 +451,7 @@ export default function Home() {
                   <ambientLight intensity={0.7} />
                   <directionalLight position={[5, 5, 5]} intensity={2} />
                   <Suspense fallback={null}>
-                    <Bounds fit clip observe={false} margin={1.40}>
+                    <Bounds fit clip observe={false} margin={1.4}>
                       <MotocycleHelmet />
                     </Bounds>
                     <Environment preset="city" />
@@ -463,10 +483,7 @@ export default function Home() {
         ref={gallerySectionRef}
         className="relative h-screen w-screen overflow-hidden"
       >
-        <div
-          ref={galleryContainerRef}
-          className="absolute inset-0"
-        >
+        <div ref={galleryContainerRef} className="absolute inset-0">
           <div
             ref={galleryWrapperRef}
             className="relative h-screen"
@@ -498,36 +515,39 @@ export default function Home() {
       >
         <div
           ref={motorcyclistLeftRef}
-          className="absolute left-0 top-1/2 h-[100vh] w-[30vw] -translate-y-1/2 will-change-transform"
+          className="absolute left-0 top-1/2 h-screen w-[30vw] -translate-y-1/2 will-change-transform"
         >
           <Image
             src="/Motorcyclist-2.webp"
             alt="Motorcyclist fleece side profile"
             fill
             sizes="30vw"
-            className="object-contain min-w-[430px]"
+            className="object-contain min-w-107.5"
           />
 
           <div className="text-black absolute left-[20vw] md:left-[35vw] top-1/2 text-center">
-            <span className="text-3xl font-bold text-[#537807] block">Motorcyclist</span>
+            <span className="text-3xl font-bold text-[#537807] block">
+              Motorcyclist
+            </span>
             <span className="text-3xl block">Motorcycle Helmet</span>
           </div>
-
         </div>
 
         <div
           ref={motorcyclistRightRef}
-          className="absolute right-0 top-1/2 h-[100vh] w-[30vw] -translate-y-1/2 will-change-transform"
+          className="absolute right-0 top-1/2 h-screen w-[30vw] -translate-y-1/2 will-change-transform"
         >
           <Image
             src="/Motorcyclist-1.webp"
             alt="Motorcyclist helmet side profile"
             fill
             sizes="30vw"
-            className="object-contain min-w-[430px]"
+            className="object-contain min-w-107.5"
           />
           <div className="text-black absolute md:right-[30vw] right-[25vw] top-1/2 text-center">
-            <span className="text-3xl font-bold text-red-800 block">Motorcyclist</span>
+            <span className="text-3xl font-bold text-red-800 block">
+              Motorcyclist
+            </span>
             <span className="text-3xl block">Motorcycle Helmet</span>
           </div>
         </div>
