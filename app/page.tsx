@@ -65,11 +65,16 @@ export default function Home() {
   const motorcyclistHeroSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+
     const lenis = new Lenis({
       lerp: 0.08,
       smoothWheel: true,
     });
 
+    lenis.scrollTo(0, { immediate: true });
     lenis.on("scroll", ScrollTrigger.update);
 
     const updateLenis = (time: number) => {
@@ -83,6 +88,7 @@ export default function Home() {
     return () => {
       gsap.ticker.remove(updateLenis);
       lenis.destroy();
+      window.history.scrollRestoration = previousScrollRestoration;
     };
   }, []);
 
@@ -321,9 +327,12 @@ export default function Home() {
         ease: "none",
       });
 
-    ScrollTrigger.refresh();
+    const refreshFrame = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
 
     return () => {
+      cancelAnimationFrame(refreshFrame);
       ctx.revert();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
