@@ -425,21 +425,29 @@ export default function Home() {
         {/* ------------------     TEXT SECTION     ---------------------- */}
 
         <section className="relative flex h-screen w-screen items-center justify-center overflow-hidden">
-          <p
-            ref={textRef}
-            className="max-w-6xl px-20 text-center text-[clamp(2rem,5vw,5rem)] font-bold leading-tight tracking-tight"
-          >
-            {"Investing in a quality motorcycle helmet is an investment in safety, durability, and peace of mind. "
-              .split(" ")
-              .map((word, index) => (
-                <span
-                  key={index}
-                  className="word inline-block mr-4 text-black/20"
-                >
-                  {word}
-                </span>
-              ))}
-          </p>
+          <div className="flex max-w-7xl flex-col items-center gap-8 px-8 text-center">
+            <span className="text-sm font-black uppercase tracking-[0.55em] text-red-950/50">
+              Protection Meets Performance
+            </span>
+            <h2 className="animated-gradient-title text-[clamp(3rem,9vw,9rem)] font-black uppercase leading-[0.85] tracking-[-0.07em] drop-shadow-[0_18px_45px_rgba(159,29,32,0.22)]">
+              Engineered for impact
+            </h2>
+            <p
+              ref={textRef}
+              className="max-w-6xl px-20 text-center text-[clamp(2rem,5vw,5rem)] font-bold leading-tight tracking-tight"
+            >
+              {"Investing in a quality motorcycle helmet is an investment in safety, durability, and peace of mind. "
+                .split(" ")
+                .map((word, index) => (
+                  <span
+                    key={index}
+                    className="word inline-block mr-4 text-black/20"
+                  >
+                    {word}
+                  </span>
+                ))}
+            </p>
+          </div>
         </section>
 
         {/* ------------------     GALLERY SECTION     ---------------------- */}

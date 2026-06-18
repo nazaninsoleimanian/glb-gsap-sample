@@ -65,6 +65,47 @@ svg {
   }
 }
 
+@keyframes text-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-title {
+  display: inline-block;
+  color: #ff3b1f;
+  background: linear-gradient(
+    90deg,
+    #4b0305 0%,
+    #b91c1c 18%,
+    #ff3b1f 34%,
+    #f97316 50%,
+    #d9ff00 66%,
+    #ff3b1f 82%,
+    #4b0305 100%
+  );
+  background-size: 320% 100%;
+  background-position: 0% 50%;
+  animation: text-gradient-shift 5s ease-in-out infinite;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .animated-gradient-title {
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
 canvas {
   display: block;
   opacity: 1;
