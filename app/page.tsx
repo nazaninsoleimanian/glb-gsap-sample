@@ -345,9 +345,9 @@ export default function Home() {
       <header className="pointer-events-none fixed inset-0 z-120">
         <span
           ref={headerLogoRef}
-          className="absolute inline-block overflow-visible whitespace-nowrap bg-linear-to-r from-[#4b0305] via-[#9f1d20] to-[#f25a3c] bg-clip-text px-3 py-1 font-serif text-4xl font-black italic lowercase leading-none tracking-[-0.045em] text-transparent [will-change:transform]"
+          className="absolute inline-block overflow-visible text-center whitespace-nowrap bg-linear-to-r from-[#4b0305] via-[#9f1d20] to-[#f25a3c] bg-clip-text px-3 py-1 font-serif text-4xl font-black italic leading-none tracking-[-0.045em] text-transparent [will-change:transform]"
         >
-          advanced analytics
+          Advanced Analytics Australia
         </span>
       </header>
 
