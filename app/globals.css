@@ -97,8 +97,25 @@ svg {
   animation: text-gradient-shift 5s ease-in-out infinite;
 }
 
+.animated-logo-gradient {
+  display: inline-block;
+  color: #9f1d20;
+  background: linear-gradient(
+    90deg,
+    #4b0305 0%,
+    #9f1d20 30%,
+    #f25a3c 50%,
+    #9f1d20 70%,
+    #4b0305 100%
+  );
+  background-size: 300% 100%;
+  background-position: 0% 50%;
+  animation: text-gradient-shift 5s ease-in-out infinite;
+}
+
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .animated-gradient-title {
+  .animated-gradient-title,
+  .animated-logo-gradient {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
