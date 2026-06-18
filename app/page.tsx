@@ -361,7 +361,10 @@ export default function Home() {
               <div className="marquee w-full overflow-hidden">
                 <div ref={firstLineRef} className="flex w-max whitespace-nowrap">
                   {[...Array(8)].map((_, i) => (
-                    <span key={i} className="flex-none px-6 text-red-800/80">
+                    <span
+                      key={i}
+                      className="flex-none bg-linear-to-r from-[#4b0305]/90 via-[#b91c1c] to-[#f97316]/90 bg-clip-text px-6 text-transparent drop-shadow-[0_14px_30px_rgba(127,29,29,0.35)]"
+                    >
                       Expert Safety Hazard Analysis
                     </span>
                   ))}
@@ -370,7 +373,10 @@ export default function Home() {
               <div className="marquee w-full overflow-hidden">
                 <div ref={secondLineRef} className="flex w-max whitespace-nowrap">
                   {[...Array(8)].map((_, i) => (
-                    <span key={i} className="flex-none px-6 text-[#2f2d2d]/80">
+                    <span
+                      key={i}
+                      className="flex-none bg-linear-to-r from-[#111111]/85 via-[#4b5563] to-[#9ca3af]/80 bg-clip-text px-6 text-transparent drop-shadow-[0_14px_30px_rgba(0,0,0,0.25)]"
+                    >
                       Expert Safety Hazard Analysis
                     </span>
                   ))}
